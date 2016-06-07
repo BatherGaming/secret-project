@@ -17,7 +17,7 @@ class Game {
  	std::vector<Player*> players_;
  public:
  	Game(Gui *gui);
- 	void Start();
+ 	void Play();
 };
 
 #endif
