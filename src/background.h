@@ -5,6 +5,8 @@
 #include "game.h"
 
 class Background {
+public:
+	Background(Game *game);
 	void Update();
 	void Draw(Game *game);
 };

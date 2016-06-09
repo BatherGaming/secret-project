@@ -1,9 +1,15 @@
 #include "background.h"
 
+Background::Background(Game *game) {
+	Draw(game);
+}
+
 void Background::Update() {
-	return;
 }
 
 void Background::Draw(Game *game) {
-	return;
+	Rectangle rectangle = {-kMaxCoordinate, -kMaxCoordinate,
+													kMaxCoordinate, kMaxCoordinate};
+	Color color = {255, 0, 0};
+	game->DrawRectangle(rectangle, kBackgroundDepth, color);
 }

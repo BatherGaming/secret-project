@@ -1,6 +1,7 @@
 FLAGS = -Wall -Wshadow -Wextra -Wconversion -std=c++11
 
 all: game.o background.o platform.o player.o
+	g++ -std=c++11 game.o background.o platform.o player.o -o main
 
 game.o : game.cpp game.h background.h platform.h player.h gui.h general.h
 	g++ $(FLAGS) -c game.cpp -o $@

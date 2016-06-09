@@ -9,8 +9,6 @@
 
 class Game {
  private:
- 	const size_t kNumOfPlatforms = 10;
- 	const size_t kNumOfPlayers = 2;
 	Gui *gui_;
  	Background *background_;
  	std::vector<Platform*> platforms_;
@@ -18,6 +16,7 @@ class Game {
  public:
  	Game(Gui *gui);
  	void Play();
+ 	void DrawRectangle(Rectangle rectangle, size_t depth, Color color);
 };
 
 #endif
