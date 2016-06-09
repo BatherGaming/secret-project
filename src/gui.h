@@ -1,5 +1,5 @@
-#ifndef _GUI_H_
-#define _GUI_H_
+#ifndef __GUI_H__
+#define __GUI_H__
 
 #include "general.h"
 
@@ -18,5 +18,5 @@ public:
 	void UpdateImage();
 };
 
-// _GUI_H_
+// __GUI_H__
 #endif
