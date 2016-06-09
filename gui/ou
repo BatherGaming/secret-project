@@ -1,0 +1,105 @@
+In file included from gui.cpp:19:0:
+gui.h:18:32: error: ‘pair’ was not declared in this scope
+  void DrawTriangle(std::vector<pair<float, float> > v, Color color);
+                                ^
+gui.h:18:32: note: suggested alternative:
+In file included from /usr/include/c++/4.9/bits/stl_algobase.h:64:0,
+                 from /usr/include/c++/4.9/bits/char_traits.h:39,
+                 from /usr/include/c++/4.9/ios:40,
+                 from /usr/include/c++/4.9/ostream:38,
+                 from /usr/include/c++/4.9/iostream:39,
+                 from gui.cpp:4:
+/usr/include/c++/4.9/bits/stl_pair.h:96:12: note:   ‘std::pair’
+     struct pair
+            ^
+In file included from gui.cpp:19:0:
+gui.h:18:49: error: template argument 1 is invalid
+  void DrawTriangle(std::vector<pair<float, float> > v, Color color);
+                                                 ^
+gui.h:18:49: error: template argument 2 is invalid
+gui.h:18:32: error: ‘pair’ was not declared in this scope
+  void DrawTriangle(std::vector<pair<float, float> > v, Color color);
+                                ^
+gui.h:18:32: note: suggested alternative:
+In file included from /usr/include/c++/4.9/bits/stl_algobase.h:64:0,
+                 from /usr/include/c++/4.9/bits/char_traits.h:39,
+                 from /usr/include/c++/4.9/ios:40,
+                 from /usr/include/c++/4.9/ostream:38,
+                 from /usr/include/c++/4.9/iostream:39,
+                 from gui.cpp:4:
+/usr/include/c++/4.9/bits/stl_pair.h:96:12: note:   ‘std::pair’
+     struct pair
+            ^
+In file included from gui.cpp:19:0:
+gui.h:18:49: error: template argument 1 is invalid
+  void DrawTriangle(std::vector<pair<float, float> > v, Color color);
+                                                 ^
+gui.h:18:49: error: template argument 2 is invalid
+gui.h:18:25: error: ‘std::vector’ is not a type
+  void DrawTriangle(std::vector<pair<float, float> > v, Color color);
+                         ^
+gui.h:18:31: error: expected ‘,’ or ‘...’ before ‘<’ token
+  void DrawTriangle(std::vector<pair<float, float> > v, Color color);
+                               ^
+gui.cpp: In constructor ‘Gui::Gui()’:
+gui.cpp:27:11: error: returning a value from a constructor
+   return -1;
+           ^
+gui.cpp:45:11: error: returning a value from a constructor
+   return -1;
+           ^
+gui.cpp:55:11: error: returning a value from a constructor
+   return -1;
+           ^
+gui.cpp:64:24: error: ‘VertexArrayID_’ was not declared in this scope
+  glGenVertexArrays(1, &VertexArrayID_);
+                        ^
+gui.cpp: In destructor ‘Gui::~Gui()’:
+gui.cpp:73:22: error: ‘vertexbuffer’ was not declared in this scope
+  glDeleteBuffers(1, &vertexbuffer);
+                      ^
+gui.cpp:74:27: error: ‘VertexArrayID_’ was not declared in this scope
+  glDeleteVertexArrays(1, &VertexArrayID_);
+                           ^
+gui.cpp: In member function ‘void Gui::DrawRectangle(Rectangle, size_t, Color)’:
+gui.cpp:84:43: error: in C++98 ‘tr1’ must be initialized by constructor, not by ‘{...}’
+                         {rect.x2, rect.y2}};
+                                           ^
+gui.cpp: In substitution of ‘template<class _InputIterator> std::vector<_Tp, _Alloc>::vector(_InputIterator, _InputIterator, const allocator_type&) [with _InputIterator = <missing>]’:
+gui.cpp:84:43:   required from here
+gui.cpp:84:43: warning: extended initializer lists only available with -std=c++11 or -std=gnu++11
+gui.cpp:84:43: error: could not convert ‘{{rect.Rectangle::x1, rect.Rectangle::y1}, {rect.Rectangle::x1, rect.Rectangle::y2}, {rect.Rectangle::x2, rect.Rectangle::y2}}’ from ‘<brace-enclosed initializer list>’ to ‘std::vector<std::pair<float, float> >’
+gui.cpp:85:25: error: no matching function for call to ‘Gui::DrawTriangle(std::vector<std::pair<float, float> >&, Color&)’
+  DrawTriangle(tr1, color);                        
+                         ^
+gui.cpp:85:25: note: candidate is:
+In file included from gui.cpp:19:0:
+gui.h:18:7: note: void Gui::DrawTriangle(int)
+  void DrawTriangle(std::vector<pair<float, float> > v, Color color);
+       ^
+gui.h:18:7: note:   candidate expects 1 argument, 2 provided
+gui.cpp:88:43: error: in C++98 ‘tr2’ must be initialized by constructor, not by ‘{...}’
+                         {rect.x1, rect.y1}};
+                                           ^
+gui.cpp: In substitution of ‘template<class _InputIterator> std::vector<_Tp, _Alloc>::vector(_InputIterator, _InputIterator, const allocator_type&) [with _InputIterator = <missing>]’:
+gui.cpp:88:43:   required from here
+gui.cpp:88:43: warning: extended initializer lists only available with -std=c++11 or -std=gnu++11
+gui.cpp:88:43: error: could not convert ‘{{rect.Rectangle::x2, rect.Rectangle::y2}, {rect.Rectangle::x2, rect.Rectangle::y1}, {rect.Rectangle::x1, rect.Rectangle::y1}}’ from ‘<brace-enclosed initializer list>’ to ‘std::vector<std::pair<float, float> >’
+gui.cpp:89:25: error: no matching function for call to ‘Gui::DrawTriangle(std::vector<std::pair<float, float> >&, Color&)’
+  DrawTriangle(tr2, color);                        
+                         ^
+gui.cpp:89:25: note: candidate is:
+In file included from gui.cpp:19:0:
+gui.h:18:7: note: void Gui::DrawTriangle(int)
+  void DrawTriangle(std::vector<pair<float, float> > v, Color color);
+       ^
+gui.h:18:7: note:   candidate expects 1 argument, 2 provided
+gui.cpp: At global scope:
+gui.cpp:91:6: error: prototype for ‘void Gui::DrawTriangle(std::vector<std::pair<float, float> >, Color)’ does not match any in class ‘Gui’
+ void Gui::DrawTriangle(std::vector<std::pair<float, float> > v, Color color){
+      ^
+In file included from gui.cpp:19:0:
+gui.h:18:7: error: candidate is: void Gui::DrawTriangle(int)
+  void DrawTriangle(std::vector<pair<float, float> > v, Color color);
+       ^
+make: *** [gui.o] Error 1
