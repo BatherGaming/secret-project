@@ -81,11 +81,11 @@ void Gui::DrawRectangle_(Rectangle rect, size_t depth, Color color){
 	std::vector<std::pair<float, float> > tr1 = {{rect.x1, rect.y1}, 
 																							 {rect.x1, rect.y2},
 																							 {rect.x2, rect.y2}};
-	DrawTriangle(tr1, color);																							 
+	DrawTriangle_(tr1, color);																							 
 	std::vector<std::pair<float, float> > tr2 = {{rect.x2, rect.y2}, 
 																							 {rect.x2, rect.y1},
 																							 {rect.x1, rect.y1}};
-	DrawTriangle(tr2, color);																							 
+	DrawTriangle_(tr2, color);																							 
 }
 void Gui::DrawTriangle_(std::vector<std::pair<float, float> > v, Color color){
 	GLfloat g_vertex_buffer_data [9];
@@ -152,8 +152,21 @@ void Gui::DrawTriangle_(std::vector<std::pair<float, float> > v, Color color){
 
 }
 
+void Gui::DrawRectangle(Rectangle rect, size_t depth, Color color){
+	draw_queue_.push_back(std::make_tuple(depth, rect, color));
+}
+
+bool cmp( const std::tuple<size_t, Rectangle, Color> &a, 
+					const std::tuple<size_t, Rectangle, Color> &b){
+	return std::get<0>(a) < std::get<0>(b);
+}
 
 void Gui::UpdateImage(){
+	sort(draw_queue_.begin(), draw_queue_.end(), cmp);
+	for(auto &rect : draw_queue_){
+		DrawRectangle_(std::get<1>(rect), std::get<0>(rect), std::get<2>(rect));
+	}
+	draw_queue_.clear();
 
 	glfwSwapBuffers(window_);
 	glfwPollEvents();
@@ -163,9 +176,8 @@ void Gui::UpdateImage(){
 
 int main(){
 	Gui *gui = new Gui();
-	gui->DrawRectangle( {-0.5, -0.5, 0.5, 0.5}, 0, {255, 0, 0});
+	gui->DrawRectangle( {-0.5, -0.5, 0.5, 0.5}, 1, {255, 0, 0});
 	gui->DrawRectangle( {-0.9, -0.9, 0.0, 0.0}, 0, {255, 255, 0});
-	gui->DrawTriangle({{-1.0, -1.0}, {0.0, 1.0}, {1.0, 0.0}}, {0,255,255});
 	gui->UpdateImage();
 	char c;
 	std::cin >> c;

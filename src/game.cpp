@@ -23,6 +23,9 @@ void Game::Play() {
 		}
 		last_time = cur_time;
 		gui_->UpdateImage();
+		if(gui_->RIP()){
+			break;
+		}
 	}
 };
 

@@ -24,7 +24,7 @@ Gui::Gui(){
 	{
 		fprintf( stderr, "Failed to initialize GLFW\n" );
 		getchar();
-		return -1;
+		return;
 	}
 
 	glfwWindowHint(GLFW_SAMPLES, 4);
@@ -42,7 +42,7 @@ Gui::Gui(){
 			"they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n");
 		getchar();
 		glfwTerminate();
-		return -1;
+		return;
 	}
 	glfwMakeContextCurrent(window_);
 
@@ -52,7 +52,7 @@ Gui::Gui(){
 		fprintf(stderr, "Failed to initialize GLEW\n");
 		getchar();
 		glfwTerminate();
-		return -1;
+		return;
 	}
 
 	// Ensure we can capture the escape key being pressed below
@@ -70,7 +70,6 @@ Gui::Gui(){
 }
 Gui::~Gui(){
 	// Cleanup VBO
-	glDeleteBuffers(1, &vertexbuffer);
 	glDeleteVertexArrays(1, &VertexArrayID_);
 	glDeleteProgram(programID_);
 
@@ -78,7 +77,28 @@ Gui::~Gui(){
 	glfwTerminate();	
 }
 
-void Gui::DrawRectangle(Rectangle rect, size_t depth, Color color){
+void Gui::DrawRectangle_(Rectangle rect, size_t depth, Color color){
+	std::vector<std::pair<float, float> > tr1 = {{rect.x1, rect.y1}, 
+																							 {rect.x1, rect.y2},
+																							 {rect.x2, rect.y2}};
+	DrawTriangle_(tr1, color);																							 
+	std::vector<std::pair<float, float> > tr2 = {{rect.x2, rect.y2}, 
+																							 {rect.x2, rect.y1},
+																							 {rect.x1, rect.y1}};
+	DrawTriangle_(tr2, color);																							 
+}
+void Gui::DrawTriangle_(std::vector<std::pair<float, float> > v, Color color){
+	GLfloat g_vertex_buffer_data [9];
+	GLfloat g_color_buffer_data [9];
+	for(int i = 0; i < v.size(); i++){
+		g_vertex_buffer_data[i*3] = v[i].first;
+		g_vertex_buffer_data[i*3+1] = v[i].second;
+		g_vertex_buffer_data[i*3+2] = 0;
+		g_color_buffer_data[i*3] = color.red / 255.0;
+		g_color_buffer_data[i*3+1] = color.green / 255.0;
+		g_color_buffer_data[i*3+2] = color.blue / 255.0;
+	}
+
 	GLuint vertexbuffer;
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
@@ -92,7 +112,7 @@ void Gui::DrawRectangle(Rectangle rect, size_t depth, Color color){
 							 g_color_buffer_data, GL_STATIC_DRAW);
 
 	// Clear the screen
-	glClear( GL_COLOR_BUFFER_BIT );	
+//	glClear( GL_COLOR_BUFFER_BIT );	
 	// Use our shader
 	glUseProgram(programID_);
 
@@ -127,10 +147,31 @@ void Gui::DrawRectangle(Rectangle rect, size_t depth, Color color){
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 
+//	glDeleteBuffers(1, &vertexbuffer);
+//	glDeleteBuffers(1, &colorbuffer);
+
+}
+
+void Gui::DrawRectangle(Rectangle rect, size_t depth, Color color){
+	draw_queue_.push_back(std::make_tuple(depth, rect, color));
+}
+
+bool cmp( const std::tuple<size_t, Rectangle, Color> &a, 
+					const std::tuple<size_t, Rectangle, Color> &b){
+	return std::get<0>(a) < std::get<0>(b);
 }
 
 void Gui::UpdateImage(){
+	sort(draw_queue_.begin(), draw_queue_.end(), cmp);
+	for(auto &rect : draw_queue_){
+		DrawRectangle_(std::get<1>(rect), std::get<0>(rect), std::get<2>(rect));
+	}
+	draw_queue_.clear();
+
 	glfwSwapBuffers(window_);
 	glfwPollEvents();
 }
 
+bool Gui::RIP(){
+	return glfwWindowShouldClose(window_);
+}
