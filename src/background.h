@@ -5,7 +5,8 @@
 #include "game.h"
 
 class Background {
-
+	void Update();
+	void Draw(Game *game);
 };
 
 #endif
