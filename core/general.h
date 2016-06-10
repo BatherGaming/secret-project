@@ -17,7 +17,7 @@ const double kMaxCoordinate = 1;
 const double kWheelCenterX = -0.25;
 const double kWheelCenterY = 0;
 const double kWheelRadius = 0.6;
-const double kWheelAngVelocity = 0.000006;
+const double kWheelAngVelocity = 0.5;
 
 const double kPlatformLength = 0.10;
 const double kPlatformWidth = 0.05;

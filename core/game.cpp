@@ -12,13 +12,13 @@ Game::Game(Gui *gui) : gui_(gui) {
 }
 
 void Game::Play() {
-	size_t last_time = 0;
+	auto last_time = std::chrono::high_resolution_clock::now();
 	for (;;) {
-		size_t cur_time = clock();
+		auto cur_time = std::chrono::high_resolution_clock::now();
 		background_->Update();
 		background_->Draw(this);
 		for (auto platform : platforms_) {
-			platform->Update(cur_time - last_time);
+			platform->Update(std::chrono::duration_cast<std::chrono::nanoseconds>(cur_time - last_time).count());
 			platform->Draw(this);
 		}
 		last_time = cur_time;
