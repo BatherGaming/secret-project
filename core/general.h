@@ -16,15 +16,15 @@ const double kMaxCoordinate = 1;
 
 const double kWheelCenterX = -0.25;
 const double kWheelCenterY = 0;
-const double kWheelRadius = 0.5;
+const double kWheelRadius = 0.6;
 const double kWheelAngVelocity = 0.000006;
 
-const double kPlatformLength = 0.05;
+const double kPlatformLength = 0.10;
 const double kPlatformWidth = 0.05;
 
 const double kPI = atan2(0., -1.);
 
-const size_t kNumOfPlatforms = 30;
+const size_t kNumOfPlatforms = 17;
 const size_t kNumOfPlayers = 2;
 
 const size_t kBackgroundDepth = 0;

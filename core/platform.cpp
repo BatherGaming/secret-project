@@ -6,9 +6,9 @@ Platform::Platform(size_t number, Game *game) {
 }
 
 void Platform::Update(size_t passed_time) {
-	angle_ += kWheelAngVelocity * passed_time;
-	while (angle_ > 2 * kPI)
-		angle_ -= 2 * kPI;
+	angle_ -= kWheelAngVelocity * passed_time;
+	while (angle_ < 0)
+		angle_ += 2 * kPI;
 }
 
 void Platform::Draw(Game *game) {
@@ -18,6 +18,6 @@ void Platform::Draw(Game *game) {
 													centerY - kPlatformWidth / 2,
 													centerX + kPlatformLength / 2, 
 													centerY + kPlatformWidth / 2 };
-	Color color = {255, 255, 255};
+	Color color = {0, 0, 255};
 	game->DrawRectangle(rectangle, kPlatformDepth, color);
 }

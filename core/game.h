@@ -5,7 +5,7 @@
 #include "background.h"
 #include "platform.h"
 #include "player.h"
-#include "gui.h"
+#include "../gui/gui.h"
 
 class Game {
  private:

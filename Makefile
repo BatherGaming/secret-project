@@ -1,9 +1,23 @@
-all: main.o shader.o
-	g++ main.o shader.o -L/usr/local/lib -lglfw -pthread\
-		-lGLEW -lGLU -lGL -lrt -lXrandr -lXxf86vm -lXi -lXinerama -lX11 -lglut
+include ./config.mk
 
-main.o: main.cpp
-	g++ -c main.cpp 
+OBJ_GUI = gui/gui.o
 
-shader.o: shader.cpp shader.hpp
-	g++ -c shader.cpp	
+OBJ_CORE = core/game.o \
+core/background.o \
+core/platform.o core/player.o\
+	 core/main.o
+
+MODULES = core gui
+
+all:
+	for dir in $(MODULES); do \
+		(cd $$dir; ${MAKE} all); \
+	done	
+	$(CXX) $(OBJ_CORE) $(OBJ_GUI) -o wheel $(LIBS)
+
+
+.PHONY: all clean
+
+clean:
+	rm $(OBJ_GUI) $(OBJ_CORE) wheel
+	

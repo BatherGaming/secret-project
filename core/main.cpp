@@ -1,4 +1,4 @@
-#include "gui.h"
+#include "../gui/gui.h"
 #include "game.h"
 
 int main(){
