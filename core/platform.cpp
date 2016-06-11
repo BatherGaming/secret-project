@@ -1,12 +1,12 @@
 #include "platform.h"
 
 Platform::Platform(size_t number, Game *game) {
-	angle_ = 2 * kPI * number / kNumOfPlatforms;
+	angle_ = 2 * kPI * static_cast<double>(number) / kNumOfPlatforms;
 	Draw(game);
 }
 
 void Platform::Update(size_t passed_time) {
-	angle_ -= kWheelAngVelocity * passed_time / 1000000000;
+	angle_ -= kWheelAngVelocity * static_cast<double>(passed_time) / 1000000000;
 	while (angle_ < 0)
 		angle_ += 2 * kPI;
 }

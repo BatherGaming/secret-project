@@ -27,10 +27,11 @@ void Gui::DrawRectangle_(Rectangle rect, size_t depth, Color color){
 }
 
 void Gui::DrawRectangle(Rectangle rect, size_t depth, Color color){
+	// TODO: Deal with this magic.
 	rect.x1 = (rect.x1 + 1) * 350;
 	rect.x2 = (rect.x2 + 1) * 350;
-	rect.y1 = (rect.y1 + 1) * 350;
-	rect.y2 = (rect.y2 + 1) * 350;
+	rect.y1 = (1 - rect.y1) * 350;
+	rect.y2 = (1 - rect.y2) * 350;
 	draw_queue_.push_back(std::make_tuple(depth, rect, color));
 }
 
