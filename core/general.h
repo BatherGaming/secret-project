@@ -29,4 +29,14 @@ const size_t kNumOfPlayers = 2;
 
 const size_t kBackgroundDepth = 0;
 const size_t kPlatformDepth = 1; 
+
+enum PressedKey{ 
+	upPlayer1 = 0,
+	leftPlayer1 = 1,
+	rightPlayer1 = 2,
+	upPlayer2 = 3,
+	leftPlayer2 = 4,
+	rightPlayer2 = 5,
+};
+
 #endif

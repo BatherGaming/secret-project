@@ -63,3 +63,26 @@ bool Gui::RIP(){
   }
   return false;
 }
+
+std::vector<PressedKey> Gui::GetPressedKeys(){
+	std::vector<PressedKey> pressed_keys;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+		pressed_keys.push_back(PressedKey::leftPlayer1);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+		pressed_keys.push_back(PressedKey::rightPlayer1);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+		pressed_keys.push_back(PressedKey::upPlayer1);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+		pressed_keys.push_back(PressedKey::leftPlayer2);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+		pressed_keys.push_back(PressedKey::rightPlayer2);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+		pressed_keys.push_back(PressedKey::upPlayer2);
+	}
+	return pressed_keys;
+}

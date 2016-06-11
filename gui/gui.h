@@ -16,9 +16,12 @@ private:
 public:
 	Gui();
 	~Gui();
+
+	std::vector<PressedKey> GetPressedKeys();
 	void DrawRectangle(Rectangle rect, size_t depth, Color color);
 	void UpdateImage();
 	bool RIP();
+
 };
 
 // __GUI_H__
