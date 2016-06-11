@@ -2,10 +2,10 @@
 
 Game::Game(Gui *gui) : gui_(gui) {
 	background_ = new Background(this);
-	for (size_t i = 0; i < kNumOfPlatforms; i++) {
+	for (size_t i = 0; i < Parameters::kNumOfPlatforms(); i++) {
 		platforms_.push_back(new Platform(i, this));
 	}
-	for (size_t i = 0; i < kNumOfPlayers; i++) {
+	for (size_t i = 0; i < Parameters::kNumOfPlayers(); i++) {
 		players_.push_back(new Player());
 	}
 	gui_->UpdateImage();

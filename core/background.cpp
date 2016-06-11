@@ -8,8 +8,11 @@ void Background::Update() {
 }
 
 void Background::Draw(Game *game) {
-	Rectangle rectangle = {-kMaxCoordinate, -kMaxCoordinate,
-													kMaxCoordinate, kMaxCoordinate};
+	Rectangle rectangle = {-Parameters::kMaxCoordinate(), 
+													-Parameters::kMaxCoordinate(),
+													Parameters::kMaxCoordinate(), 
+													Parameters::kMaxCoordinate()
+												};
 	Color color = {255, 0, 0};
-	game->DrawRectangle(rectangle, kBackgroundDepth, color);
+	game->DrawRectangle(rectangle, Parameters::kBackgroundDepth(), color);
 }

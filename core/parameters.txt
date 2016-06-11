@@ -1,0 +1,14 @@
+kMaxCoordinate = 1
+
+kWheelCenterX = -0.25
+kWheelCenterY = 0
+kWheelRadius = 0.6
+kWheelAngVelocity = 1
+
+kPlatformLength = 0.10
+kPlatformWidth = 0.05
+kNumOfPlatforms = 2
+kNumOfPlayers = 2
+
+kBackgroundDepth = 0
+kPlatformDepth = 1 
