@@ -1,6 +1,6 @@
 FLAGS = -Wall -Wshadow -Wextra -Wconversion -std=c++11
 
-all: main.o game.o background.o platform.o player.o
+all: main.o game.o background.o platform.o player.o general.o
 
 main.o: main.cpp 
 	g++ $(FLAGS) -c main.cpp -o $@
@@ -17,7 +17,11 @@ platform.o : platform.cpp platform.h game.h general.h
 player.o : player.cpp player.h game.h platform.h general.h
 	g++ $(FLAGS) -c player.cpp -o $@
 
-.PHONY: clean
+general.o : general.cpp general.h
+	g++ $(FLAGS) -c general.cpp -o $@
+
+
+.PHONY: clean all
 
 clean:
 	rm -rf *.o

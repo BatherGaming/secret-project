@@ -5,7 +5,8 @@ OBJ_GUI = gui/gui.o
 OBJ_CORE = core/game.o \
 core/background.o \
 core/platform.o core/player.o\
-	 core/main.o
+	 core/main.o\
+	 core/general.o
 
 MODULES = core gui
 

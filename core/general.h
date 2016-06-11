@@ -30,7 +30,7 @@ class Parameters {
 
  public:
 	Parameters() {
-		std::ifstream in("parameters.txt");
+		std::ifstream in ("core/parameters.txt");
 		std::string fake;
 		in >> fake >> fake >> kMaxCoordinate_;
 		in >> fake >> fake >> kWheelCenterX_;
@@ -43,6 +43,8 @@ class Parameters {
 		in >> fake >> fake >> kNumOfPlayers_;
 		in >> fake >> fake >> kBackgroundDepth_;
 		in >> fake >> fake >> kPlatformDepth_;
+		std::cerr << kPlatformDepth_ << std::endl;
+		std::cerr << kWheelAngVelocity_ << std::endl;
 		in.close();
 	}
 
@@ -59,24 +61,9 @@ class Parameters {
 	static size_t kPlatformDepth()   { return kPlatformDepth_; }
 };
 
-
-double Parameters::kMaxCoordinate_;
-double Parameters::kWheelCenterX_;
-double Parameters::kWheelCenterY_;
-double Parameters::kWheelRadius_;
-double Parameters::kWheelAngVelocity_;
-double Parameters::kPlatformLength_;
-double Parameters::kPlatformWidth_;
-size_t Parameters::kNumOfPlatforms_;
-size_t Parameters::kNumOfPlayers_;
-size_t Parameters::kBackgroundDepth_;
-size_t Parameters::kPlatformDepth_;
-
 class ParametersInitializer {
 	static Parameters parameters_;
 };
-
-Parameters ParametersInitializer::parameters_;
 
 enum PressedKey {  
 	upPlayer1 = 0,
@@ -86,5 +73,7 @@ enum PressedKey {
 	leftPlayer2 = 4,
 	rightPlayer2 = 5,
 };
+
+
 
 #endif

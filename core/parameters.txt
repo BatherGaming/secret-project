@@ -7,7 +7,7 @@ kWheelAngVelocity = 1
 
 kPlatformLength = 0.10
 kPlatformWidth = 0.05
-kNumOfPlatforms = 2
+kNumOfPlatforms = 10
 kNumOfPlayers = 2
 
 kBackgroundDepth = 0
