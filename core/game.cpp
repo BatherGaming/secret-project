@@ -16,6 +16,16 @@ void Game::Play() {
 	auto last_time = std::chrono::high_resolution_clock::now();
 	while(true) {
 		auto cur_time = std::chrono::high_resolution_clock::now();
+
+		std::vector<PressedKey> pressed_keys = gui_->GetPressedKeys();
+		for (auto key : pressed_keys) {
+			if (key == leftPlayer1) {
+				players_[0]->MoveLeft(std::chrono::duration_cast<std::chrono::nanoseconds>(cur_time - last_time).count());
+			}
+			if (key == rightPlayer1) {
+				players_[0]->MoveRight(std::chrono::duration_cast<std::chrono::nanoseconds>(cur_time - last_time).count());
+			}
+		}
 		background_->Update();
 		background_->Draw(this);
 		for (auto platform : platforms_) {

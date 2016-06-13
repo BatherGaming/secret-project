@@ -25,6 +25,7 @@ class Parameters {
 	static double kPlatformLength_;
 	static double kPlatformWidth_;
 	static double kPlayerLength_;
+	static double kPlayerHorizontalSpeed_;
 	static size_t kNumOfPlatforms_;
 	static size_t kNumOfPlayers_;
 	static size_t kBackgroundDepth_;
@@ -46,6 +47,7 @@ class Parameters {
 		in >> fake >> fake >> kPlatformLength_;
 		in >> fake >> fake >> kPlatformWidth_;
 		in >> fake >> fake >> kPlayerLength_;
+		in >> fake >> fake >> kPlayerHorizontalSpeed_;
 		in >> fake >> fake >> kNumOfPlatforms_;
 		in >> fake >> fake >> kNumOfPlayers_;
 		in >> fake >> fake >> kBackgroundDepth_;
@@ -64,6 +66,7 @@ class Parameters {
 	static double kPlatformLength()  { return kPlatformLength_; }
 	static double kPlatformWidth()   { return kPlatformWidth_; }
 	static double kPlayerLength()    { return kPlayerLength_; }
+	static double kPlayerHorizontalSpeed() { return kPlayerHorizontalSpeed_; }
 	static size_t kNumOfPlatforms()  { return kNumOfPlatforms_; }
 	static size_t kNumOfPlayers()    { return kNumOfPlayers_; }
 	static size_t kBackgroundDepth() { return kBackgroundDepth_; }

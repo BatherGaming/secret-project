@@ -24,3 +24,13 @@ void Player::Draw(Game *game) {
 	Color color = {255, 0, 255};
 	game->GetGui()->DrawRectangle(rectangle, Parameters::kPlayerDepth(), color);
 }
+
+void Player::MoveLeft(size_t passed_time) {
+	shift_ -= Parameters::kPlayerHorizontalSpeed() * 
+							static_cast<double>(passed_time) / 1000000000;
+}
+
+void Player::MoveRight(size_t passed_time) {
+	shift_ += Parameters::kPlayerHorizontalSpeed() * 
+							static_cast<double>(passed_time) / 1000000000;
+}

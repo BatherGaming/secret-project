@@ -7,9 +7,10 @@ kWheelAngVelocity = 1
 
 kPlatformLength = 0.10
 kPlatformWidth = 0.05
-kPlayerLength = 0.10
+kPlayerLength = 0.04;
+kPlayerHorizontalSpeed = 0.02; 
 kNumOfPlatforms = 10
-kNumOfPlayers = 3
+kNumOfPlayers = 1
 
 kBackgroundDepth = 0
 kPlatformDepth = 2

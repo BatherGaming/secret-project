@@ -10,8 +10,10 @@ class Player {
 	Player(Game *game);
 	void Draw(Game *game);
 	void Update();
+	void MoveLeft(size_t passed_time);
+	void MoveRight(size_t passed_time);
  private:
-	bool on_platform_;
+ 	bool on_platform_;
 	Platform *platform_;
 	double shift_;
 };
