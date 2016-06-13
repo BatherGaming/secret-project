@@ -24,12 +24,15 @@ class Parameters {
 	static double kWheelAngVelocity_;
 	static double kPlatformLength_;
 	static double kPlatformWidth_;
+	static double kPlayerLength_;
 	static size_t kNumOfPlatforms_;
 	static size_t kNumOfPlayers_;
 	static size_t kBackgroundDepth_;
 	static size_t kPlatformDepth_;
+	static size_t kPlayerDepth_;
 	static size_t kWindowWidth_;
 	static size_t kWindowHeight_;
+
 
  public:
 	Parameters() {
@@ -42,10 +45,12 @@ class Parameters {
 		in >> fake >> fake >> kWheelAngVelocity_;
 		in >> fake >> fake >> kPlatformLength_;
 		in >> fake >> fake >> kPlatformWidth_;
+		in >> fake >> fake >> kPlayerLength_;
 		in >> fake >> fake >> kNumOfPlatforms_;
 		in >> fake >> fake >> kNumOfPlayers_;
 		in >> fake >> fake >> kBackgroundDepth_;
 		in >> fake >> fake >> kPlatformDepth_;
+		in >> fake >> fake >> kPlayerDepth_;
 		in >> fake >> fake >> kWindowWidth_;
 		in >> fake >> fake >> kWindowHeight_;
 		in.close();
@@ -58,12 +63,14 @@ class Parameters {
 	static double kWheelAngVelocity(){ return kWheelAngVelocity_; }
 	static double kPlatformLength()  { return kPlatformLength_; }
 	static double kPlatformWidth()   { return kPlatformWidth_; }
+	static double kPlayerLength()    { return kPlayerLength_; }
 	static size_t kNumOfPlatforms()  { return kNumOfPlatforms_; }
 	static size_t kNumOfPlayers()    { return kNumOfPlayers_; }
 	static size_t kBackgroundDepth() { return kBackgroundDepth_; }
 	static size_t kPlatformDepth()   { return kPlatformDepth_; }
-	static size_t kWindowWidth()   { return kWindowWidth_; }
-	static size_t kWindowHeight()   { return kWindowHeight_; }
+	static size_t kPlayerDepth()     { return kPlayerDepth_;}
+	static size_t kWindowWidth()     { return kWindowWidth_; }
+	static size_t kWindowHeight()    { return kWindowHeight_; }
 };
 
 class ParametersInitializer {

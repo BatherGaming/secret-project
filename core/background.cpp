@@ -15,17 +15,17 @@ void Background::Draw(Game *game) {
 													Parameters::kMaxCoordinate()
 												};
 	Color color = {255, 255, 255};
-	game->DrawRectangle(rectangle, Parameters::kBackgroundDepth(), color);
+	game->GetGui()->DrawRectangle(rectangle, Parameters::kBackgroundDepth(), color);
 
-	std::pair<double, double> obj_size = game->GetObjectSize(0);
+	std::pair<double, double> obj_size = game->GetGui()->GetObjectSize(0);
 
 
 	Point tree_position = {obj_size.first / 2, -1 + obj_size.second / 2};
-	game->DrawObject(0, Parameters::kBackgroundDepth()+1, tree_position);
+	game->GetGui()->DrawObject(0, Parameters::kBackgroundDepth()+1, tree_position);
 	tree_position = {-obj_size.first / 2, -1 + obj_size.second / 2};
-	game->DrawObject(0, Parameters::kBackgroundDepth()+1, tree_position);
+	game->GetGui()->DrawObject(0, Parameters::kBackgroundDepth()+1, tree_position);
 	tree_position = {-1+obj_size.first / 2, -1 + obj_size.second / 2};
-	game->DrawObject(0, Parameters::kBackgroundDepth()+1, tree_position);
+	game->GetGui()->DrawObject(0, Parameters::kBackgroundDepth()+1, tree_position);
 	tree_position = {1-obj_size.first / 2, -1 + obj_size.second / 2};
-	game->DrawObject(0, Parameters::kBackgroundDepth()+1, tree_position);
+	game->GetGui()->DrawObject(0, Parameters::kBackgroundDepth()+1, tree_position);
 }

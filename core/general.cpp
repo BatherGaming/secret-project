@@ -7,10 +7,12 @@ double Parameters::kWheelRadius_;
 double Parameters::kWheelAngVelocity_;
 double Parameters::kPlatformLength_;
 double Parameters::kPlatformWidth_;
+double Parameters::kPlayerLength_;
 size_t Parameters::kNumOfPlatforms_;
 size_t Parameters::kNumOfPlayers_;
 size_t Parameters::kBackgroundDepth_;
 size_t Parameters::kPlatformDepth_;
+size_t Parameters::kPlayerDepth_;
 size_t Parameters::kWindowWidth_;
 size_t Parameters::kWindowHeight_;
 

@@ -11,6 +11,7 @@ public:
 	Platform(size_t number, Game *game);
 	void Update(size_t passed_time);
 	void Draw(Game *game);
+	Point GetCenter();
 };
 
 #endif

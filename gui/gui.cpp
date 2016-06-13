@@ -10,12 +10,12 @@ Gui::Gui(){
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;	
 
-/*  window_ = new (sf::RenderWindow)(
-  		sf::VideoMode(Parameters::kWindowWidth(), Parameters::kWindowHeight()), 
-  		"SFML works!", sf::Style::Titlebar | sf::Style::Close, settings);*/
   window_ = new (sf::RenderWindow)(
-  		sf::VideoMode::getFullscreenModes()[0], 
-  		"SFML works!", sf::Style::Fullscreen, settings);
+  		sf::VideoMode(Parameters::kWindowWidth(), Parameters::kWindowHeight()), 
+  		"SFML works!", sf::Style::Titlebar | sf::Style::Close, settings);
+  //window_ = new (sf::RenderWindow)(
+  	//	sf::VideoMode::getFullscreenModes()[0], 
+  		//"SFML works!", sf::Style::Fullscreen, settings);
 
   window_width_ = window_->getSize().x;
   window_height_ = window_->getSize().y;

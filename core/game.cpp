@@ -7,7 +7,7 @@ Game::Game(Gui *gui) : gui_(gui) {
 		platforms_.push_back(new Platform(i, this));
 	}
 	for (size_t i = 0; i < Parameters::kNumOfPlayers(); i++) {
-		players_.push_back(new Player());
+		players_.push_back(new Player(this));
 	}
 	gui_->UpdateImage();
 }
@@ -22,6 +22,10 @@ void Game::Play() {
 			platform->Update(std::chrono::duration_cast<std::chrono::nanoseconds>(cur_time - last_time).count());
 			platform->Draw(this);
 		}
+		for (auto player : players_) {
+			player->Update();
+			player->Draw(this);
+		}
 		last_time = cur_time;
 		gui_->UpdateImage();
 		if(gui_->RIP()){
@@ -30,12 +34,10 @@ void Game::Play() {
 	}
 };
 
-void Game::DrawRectangle(Rectangle rectangle, size_t depth, Color color) {
-	gui_->DrawRectangle(rectangle, depth, color);
+Gui *Game::GetGui() {
+	return gui_;
 }
-void Game::DrawObject(size_t obj_id, size_t depth, Point position){
-	gui_->DrawObject(obj_id, depth, position);
-}
-std::pair<double,double> Game::GetObjectSize(size_t obj_id){
-	return gui_->GetObjectSize(obj_id);
+
+Platform *Game::GetPlatform(size_t num) {
+	return platforms_[num];
 }

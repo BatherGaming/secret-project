@@ -13,14 +13,18 @@ void Platform::Update(size_t passed_time) {
 }
 
 void Platform::Draw(Game *game) {
-	double centerX = Parameters::kWheelCenterX() + 
-											Parameters::kWheelRadius() * cos(angle_);
-	double centerY = Parameters::kWheelCenterY() + 
-											Parameters::kWheelRadius() * sin(angle_);
-	Rectangle rectangle = { centerX - Parameters::kPlatformLength() / 2, 
-													centerY - Parameters::kPlatformWidth() / 2,
-													centerX + Parameters::kPlatformLength() / 2, 
-													centerY + Parameters::kPlatformWidth() / 2 };
+	Point center = GetCenter();
+	Rectangle rectangle = { center.x - Parameters::kPlatformLength() / 2, 
+													center.y - Parameters::kPlatformWidth() / 2,
+													center.x + Parameters::kPlatformLength() / 2, 
+													center.y + Parameters::kPlatformWidth() / 2 
+												};
 	Color color = {0, 0, 255};
-	game->DrawRectangle(rectangle, Parameters::kPlatformDepth(), color);
+	game->GetGui()->DrawRectangle(rectangle, Parameters::kPlatformDepth(), color);
+}
+
+Point Platform::GetCenter() {
+	return { Parameters::kWheelCenterX() + Parameters::kWheelRadius() * cos(angle_),
+					 Parameters::kWheelCenterY() + Parameters::kWheelRadius() * sin(angle_)
+				};
 }
