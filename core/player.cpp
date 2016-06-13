@@ -1,6 +1,6 @@
 #include "player.h"
 
-Player::Player(Game *game) {
+Player::Player(Color color, Game *game) : color_(color) {
 	on_platform_ = true;
 	platform_ = game->GetPlatform(rand() % Parameters::kNumOfPlatforms());
 	shift_ = 0.;
@@ -21,8 +21,7 @@ void Player::Draw(Game *game) {
 													platform_center.y + Parameters::kPlatformWidth() / 2
 																						+ Parameters::kPlayerLength()
 												};
-	Color color = {255, 0, 255};
-	game->GetGui()->DrawRectangle(rectangle, Parameters::kPlayerDepth(), color);
+	game->GetGui()->DrawRectangle(rectangle, Parameters::kPlayerDepth(), color_);
 }
 
 void Player::MoveLeft(size_t passed_time) {

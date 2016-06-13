@@ -6,8 +6,9 @@ Game::Game(Gui *gui) : gui_(gui) {
 	for (size_t i = 0; i < Parameters::kNumOfPlatforms(); i++) {
 		platforms_.push_back(new Platform(i, this));
 	}
+	Color player_colors[2] = {{255, 0, 255}, {255, 255, 0}};
 	for (size_t i = 0; i < Parameters::kNumOfPlayers(); i++) {
-		players_.push_back(new Player(this));
+		players_.push_back(new Player(player_colors[i], this));
 	}
 	gui_->UpdateImage();
 }
@@ -24,6 +25,12 @@ void Game::Play() {
 			}
 			if (key == rightPlayer1) {
 				players_[0]->MoveRight(std::chrono::duration_cast<std::chrono::nanoseconds>(cur_time - last_time).count());
+			}
+			if (key == leftPlayer2) {
+				players_[1]->MoveLeft(std::chrono::duration_cast<std::chrono::nanoseconds>(cur_time - last_time).count());
+			}
+			if (key == rightPlayer2) {
+				players_[1]->MoveRight(std::chrono::duration_cast<std::chrono::nanoseconds>(cur_time - last_time).count());
 			}
 		}
 		background_->Update();
