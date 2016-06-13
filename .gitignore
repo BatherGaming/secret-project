@@ -5,3 +5,5 @@ kek.cpp
 main1.cpp
 src/main
 wheel
+*.xcf
+gui/img/tree.xcf
