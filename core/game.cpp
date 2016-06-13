@@ -1,4 +1,5 @@
 #include "game.h"
+#include <iostream> // For debug purposes
 
 Game::Game(Gui *gui) : gui_(gui) {
 	background_ = new Background(this);
@@ -13,7 +14,7 @@ Game::Game(Gui *gui) : gui_(gui) {
 
 void Game::Play() {
 	auto last_time = std::chrono::high_resolution_clock::now();
-	for (;;) {
+	while(true) {
 		auto cur_time = std::chrono::high_resolution_clock::now();
 		background_->Update();
 		background_->Draw(this);
@@ -31,4 +32,10 @@ void Game::Play() {
 
 void Game::DrawRectangle(Rectangle rectangle, size_t depth, Color color) {
 	gui_->DrawRectangle(rectangle, depth, color);
+}
+void Game::DrawObject(size_t obj_id, size_t depth, Point position){
+	gui_->DrawObject(obj_id, depth, position);
+}
+std::pair<double,double> Game::GetObjectSize(size_t obj_id){
+	return gui_->GetObjectSize(obj_id);
 }

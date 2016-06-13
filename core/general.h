@@ -13,6 +13,7 @@ struct Rectangle { double x1, y1, x2, y2; };
 struct Color { int red, green, blue; };
 
 const double kPI = atan2(0., -1.);
+const std::string kObjectTexturePathsFile = "gui/textures.txt";
  
 class Parameters {
  private:
@@ -27,6 +28,8 @@ class Parameters {
 	static size_t kNumOfPlayers_;
 	static size_t kBackgroundDepth_;
 	static size_t kPlatformDepth_;
+	static size_t kWindowWidth_;
+	static size_t kWindowHeight_;
 
  public:
 	Parameters() {
@@ -43,8 +46,8 @@ class Parameters {
 		in >> fake >> fake >> kNumOfPlayers_;
 		in >> fake >> fake >> kBackgroundDepth_;
 		in >> fake >> fake >> kPlatformDepth_;
-		std::cerr << kPlatformDepth_ << std::endl;
-		std::cerr << kWheelAngVelocity_ << std::endl;
+		in >> fake >> fake >> kWindowWidth_;
+		in >> fake >> fake >> kWindowHeight_;
 		in.close();
 	}
 
@@ -59,6 +62,8 @@ class Parameters {
 	static size_t kNumOfPlayers()    { return kNumOfPlayers_; }
 	static size_t kBackgroundDepth() { return kBackgroundDepth_; }
 	static size_t kPlatformDepth()   { return kPlatformDepth_; }
+	static size_t kWindowWidth()   { return kWindowWidth_; }
+	static size_t kWindowHeight()   { return kWindowHeight_; }
 };
 
 class ParametersInitializer {

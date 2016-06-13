@@ -11,5 +11,7 @@ size_t Parameters::kNumOfPlatforms_;
 size_t Parameters::kNumOfPlayers_;
 size_t Parameters::kBackgroundDepth_;
 size_t Parameters::kPlatformDepth_;
+size_t Parameters::kWindowWidth_;
+size_t Parameters::kWindowHeight_;
 
 Parameters ParametersInitializer::parameters_;

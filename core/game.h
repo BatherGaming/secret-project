@@ -17,6 +17,8 @@ class Game {
  	Game(Gui *gui);
  	void Play();
  	void DrawRectangle(Rectangle rectangle, size_t depth, Color color);
+ 	void DrawObject(size_t obj_id, size_t depth, Point position);
+ 	std::pair<double,double> GetObjectSize(size_t obj_id);
 };
 
 #endif

@@ -12,3 +12,6 @@ kNumOfPlayers = 2
 
 kBackgroundDepth = 0
 kPlatformDepth = 1 
+
+kWindowWidth = 1200
+kWindowHeight = 800
