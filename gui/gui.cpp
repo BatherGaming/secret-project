@@ -10,12 +10,15 @@ Gui::Gui(){
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;	
 
-  window_ = new (sf::RenderWindow)(
+/*  window_ = new (sf::RenderWindow)(
   		sf::VideoMode(Parameters::kWindowWidth(), Parameters::kWindowHeight()), 
-  		"SFML works!", sf::Style::Titlebar | sf::Style::Close, settings);
+  		"SFML works!", sf::Style::Titlebar | sf::Style::Close, settings);*/
+  window_ = new (sf::RenderWindow)(
+  		sf::VideoMode::getFullscreenModes()[0], 
+  		"SFML works!", sf::Style::Fullscreen, settings);
 
-  window_width_ = Parameters::kWindowWidth();
-  window_height_ = Parameters::kWindowHeight();
+  window_width_ = window_->getSize().x;
+  window_height_ = window_->getSize().y;
 
   LoadObjectTextures();
 }
@@ -97,18 +100,22 @@ void Gui::UpdateImage(){
 	window_->clear();
 
 	// TODO: Merge into one vector.
-
 	sort(draw_rect_queue_.begin(), draw_rect_queue_.end(), cmpRect);
-	for(auto &rect : draw_rect_queue_){
-		DrawRectangle_(std::get<1>(rect), std::get<2>(rect));
-	}
-	draw_rect_queue_.clear();
+
+	DrawRectangle_(std::get<1>(draw_rect_queue_[0]), std::get<2>(draw_rect_queue_[0]));
+	draw_rect_queue_.erase(draw_rect_queue_.begin());
 
 	sort(draw_obj_queue_.begin(), draw_obj_queue_.end(), cmpObj);
 	for(auto &obj : draw_obj_queue_){
 		DrawObject_(std::get<1>(obj), std::get<2>(obj));
 	}
 	draw_obj_queue_.clear();
+
+	for(auto &rect : draw_rect_queue_){
+		DrawRectangle_(std::get<1>(rect), std::get<2>(rect));
+	}
+	draw_rect_queue_.clear();
+
 
 	window_->display();
 }

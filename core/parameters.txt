@@ -11,7 +11,7 @@ kNumOfPlatforms = 10
 kNumOfPlayers = 2
 
 kBackgroundDepth = 0
-kPlatformDepth = 1 
+kPlatformDepth = 2
 
 kWindowWidth = 1200
 kWindowHeight = 800
