@@ -79,11 +79,13 @@ class ParametersInitializer {
 
 enum PressedKey {  
 	upPlayer1 = 0,
-	leftPlayer1 = 1,
-	rightPlayer1 = 2,
-	upPlayer2 = 3,
-	leftPlayer2 = 4,
-	rightPlayer2 = 5,
+	leftPlayer1,
+	rightPlayer1,
+	downPlayer1, 
+	upPlayer2,
+	leftPlayer2,
+	rightPlayer2,
+	downPlayer2
 };
 
 
