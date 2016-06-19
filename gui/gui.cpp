@@ -10,12 +10,12 @@ Gui::Gui(){
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;	
 
-  //window_ = new (sf::RenderWindow)(
-  //		sf::VideoMode(Parameters::kWindowWidth(), Parameters::kWindowHeight()), 
-//  		"Secret project", sf::Style::Titlebar | sf::Style::Close, settings);
   window_ = new (sf::RenderWindow)(
-  		sf::VideoMode::getFullscreenModes()[0], 
-  		"Secret project", sf::Style::Fullscreen, settings);
+  		sf::VideoMode(Parameters::GetInt("WindowWidth"), Parameters::GetInt("WindowHeight")), 
+  		"Secret project", sf::Style::Titlebar | sf::Style::Close, settings);
+//  window_ = new (sf::RenderWindow)(
+  //		sf::VideoMode::getFullscreenModes()[0], 
+  	//	"Secret project", sf::Style::Fullscreen, settings);
 
   window_width_ = window_->getSize().x;
   window_height_ = window_->getSize().y;

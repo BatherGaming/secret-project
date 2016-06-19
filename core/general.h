@@ -19,33 +19,9 @@ class Parameters {
 
 
  public:
-	Parameters() {
-		std::ifstream in ("core/parameters.txt");
-		std::string fake;
-		while(!in.eof()){
-			std::cerr << 1 << "\n";
-			std::string parameterName;	
-			std::cerr << 2 << "\n";
-			in >> parameterName;
-			std::cerr << 3 << "\n";
-			if(parameterName[0]=='#') break;
-			std::cerr << parameterName << "\n";
-			in >> fake >> doubleParameters[parameterName];
-		}
-		while(!in.eof()){
-			std::string parameterName;	
-			in >> parameterName;
-			in >> fake >> integerParameters[parameterName];
-		}
-		in.close();
-	}
-	static double GetDbl(std::string parameter_name){
-		return doubleParameters[parameter_name];
-	}
-	static size_t GetInt(std::string parameter_name){
-		return integerParameters[parameter_name];
-	}
-
+	Parameters();
+	static double GetDbl(std::string parameter_name);
+	static size_t GetInt(std::string parameter_name);
 };
 
 class ParametersInitializer {

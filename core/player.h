@@ -17,6 +17,7 @@ class Player {
  private:
  	Color color_;
  	bool on_platform_;
+ 	bool NeedToFall_;
 	Platform *platform_;
 	double shift_;
 

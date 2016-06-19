@@ -3,17 +3,17 @@ MaxCoordinate = 1
 WheelCenterX = -0.25
 WheelCenterY = 0
 WheelRadius = 0.6
-WheelAngVelocity = 3
+WheelAngVelocity = 0.5
 
-PlatformLength = 0.10
+PlatformLength = 0.25
 PlatformWidth = 0.05
 PlayerLength = 0.04
 PlayerHorizontalSpeed = 0.3
-VerticalAcceleration = 0.005
+VerticalAcceleration = -1
 
 ###
 
-NumOfPlatforms = 100
+NumOfPlatforms = 10
 NumOfPlayers = 2
 
 BackgroundDepth = 0

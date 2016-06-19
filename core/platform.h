@@ -13,6 +13,7 @@ public:
 	void Update(size_t passed_time);
 	void Draw(Game *game);
 	Point GetCenter();
+	double GetAngle();
 };
 
 #endif

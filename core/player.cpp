@@ -1,3 +1,6 @@
+#include <iostream> // For debug purposes.
+#include <cmath>
+
 #include "player.h"
 #include "../gui/drawable.h"
 
@@ -15,11 +18,19 @@ void Player::Update(size_t passed_time) {
 		location_.x = platform_center.x + shift_;
 		location_.y = platform_center.y + Parameters::GetDbl("PlatformWidth") / 2 +
 												Parameters::GetDbl("PlayerLength") / 2;
+		if (!NeedToFall_) { 
+			return; 
+		}
+		else {
+			FreeFall();
+			NeedToFall_ = false;
+		}
 	}
 	double real_time = static_cast<double>(passed_time) / 1000000000;
-	location_.y -= vertical_speed_ * real_time + real_time * real_time * 
+	location_.y += vertical_speed_ * real_time + real_time * real_time * 
 										Parameters::GetDbl("VerticalAcceleration") / 2;
 	vertical_speed_ += Parameters::GetDbl("VerticalAcceleration") * real_time;
+
 }
 
 void Player::Draw(Game *game) {
@@ -41,18 +52,22 @@ double HorizontalShift(size_t passed_time) {
 }
 
 void Player::FreeFall(double initial_speed) {
-	location_.x = platform_->GetCenter().x + shift_;
-	location_.y = platform_->GetCenter().y + Parameters::GetDbl("PlatformWidth") / 2 + 
-																				 + Parameters::GetDbl("PlayerLength") / 2;
-	vertical_speed_ = initial_speed;
+//	location_.x = platform_->GetCenter().x + shift_;
+//	location_.y = platform_->GetCenter().y + Parameters::GetDbl("PlatformWidth") / 2 + 
+																				 //+ Parameters::GetDbl("PlayerLength") / 2;
+	vertical_speed_ = initial_speed - cos(platform_->GetAngle()) * 
+																		Parameters::GetDbl("WheelAngVelocity")*
+																		Parameters::GetDbl("WheelRadius");
 	on_platform_ = false;
 	platform_ = nullptr;
 }
 
 void Player::CheckFreeFall() {
-	if (abs(shift_) > Parameters::GetDbl("PlatfromLength") / 2 + 
+	if (fabs(shift_) > Parameters::GetDbl("PlatformLength") / 2 + 
 										Parameters::GetDbl("PlayerLength") / 2) {
-		FreeFall();
+		std::cerr << fabs(shift_) << " " << Parameters::GetDbl("PlatformLength") / 2 + 
+										Parameters::GetDbl("PlayerLength") / 2 << std::endl;
+		NeedToFall_ = true;
 	}
 }
 

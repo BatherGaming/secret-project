@@ -1,3 +1,4 @@
+#include <iostream> // For debug purposes.
 #include "platform.h"
 #include "../gui/drawable.h"
 
@@ -7,7 +8,7 @@ Platform::Platform(size_t number, Game *game) {
 }
 
 void Platform::Update(size_t passed_time) {
-	angle_ -= Parameters::GetInt("WheelAngVelocity") * 
+	angle_ -= Parameters::GetDbl("WheelAngVelocity") * 
 							static_cast<double>(passed_time) / 1000000000;
 	while (angle_ < 0)
 		angle_ += 2 * kPI;
@@ -31,4 +32,8 @@ Point Platform::GetCenter() {
 	return { Parameters::GetDbl("WheelCenterX") + Parameters::GetDbl("WheelRadius") * cos(angle_),
 					 Parameters::GetDbl("WheelCenterY") + Parameters::GetDbl("WheelRadius") * sin(angle_)
 				};
+}
+
+double Platform::GetAngle() {
+	return angle_;
 }
