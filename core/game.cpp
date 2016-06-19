@@ -40,7 +40,7 @@ void Game::Play() {
 			platform->Draw(this);
 		}
 		for (auto player : players_) {
-			player->Update();
+			player->Update(std::chrono::duration_cast<std::chrono::nanoseconds>(cur_time - last_time).count());
 			player->Draw(this);
 		}
 		last_time = cur_time;

@@ -10,26 +10,28 @@ Player::Player(Color color, Game *game) : color_(color) {
 }
 
 void Player::Update(size_t passed_time) {
-	if (on_platform_) { return; }
+	if (on_platform_) { 
+		Point platform_center = platform_->GetCenter();
+		location_.x = platform_center.x + shift_;
+		location_.y = platform_center.y + Parameters::GetDbl("PlatformWidth") / 2 +
+												Parameters::GetDbl("PlayerLength") / 2;
+	}
 	double real_time = static_cast<double>(passed_time) / 1000000000;
-	location_.y -= vertical_speed * real_time + real_time * real_time * 
-										Parameters::GetDbl("VerticalAcceleration");
-									
+	location_.y -= vertical_speed_ * real_time + real_time * real_time * 
+										Parameters::GetDbl("VerticalAcceleration") / 2;
+	vertical_speed_ += Parameters::GetDbl("VerticalAcceleration") * real_time;
 }
 
 void Player::Draw(Game *game) {
-	Point platform_center = platform_->GetCenter();
-	Drawable *rectangle = new Rectangle(platform_center.x + shift_ - 
-																							Parameters::GetDbl("PlayerLength") / 2,
-													platform_center.y + Parameters::GetDbl("PlatformWidth") / 2,
-													platform_center.x + shift_ +
-																							Parameters::GetDbl("PlayerLength") / 2,
-													platform_center.y + Parameters::GetDbl("PlatformWidth") / 2
-																						+ Parameters::GetDbl("PlayerLength"),
-																						color_,
-																						Parameters::GetInt("PlayerDepth"),
-																						game->GetGui()
-																						);						
+	Drawable *rectangle = new Rectangle(location_.x - 
+																					Parameters::GetDbl("PlayerLength") / 2,
+													location_.y - Parameters::GetDbl("PlayerLength") / 2,
+													location_.x + Parameters::GetDbl("PlayerLength") / 2,
+													location_.y + Parameters::GetDbl("PlayerLength") / 2,
+													color_,
+													Parameters::GetInt("PlayerDepth"),
+													game->GetGui()
+													);						
 	game->GetGui()->Draw(rectangle);
 }
 
@@ -38,11 +40,11 @@ double HorizontalShift(size_t passed_time) {
 							static_cast<double>(passed_time) / 1000000000;
 }
 
-void Player::FreeFall(double initial_speed = 0) {
+void Player::FreeFall(double initial_speed) {
 	location_.x = platform_->GetCenter().x + shift_;
 	location_.y = platform_->GetCenter().y + Parameters::GetDbl("PlatformWidth") / 2 + 
 																				 + Parameters::GetDbl("PlayerLength") / 2;
-	vertical_speed = initial_speed;
+	vertical_speed_ = initial_speed;
 	on_platform_ = false;
 	platform_ = nullptr;
 }

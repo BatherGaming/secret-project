@@ -1,23 +1,24 @@
-kMaxCoordinate = 1
+MaxCoordinate = 1
 
-kWheelCenterX = -0.25
-kWheelCenterY = 0
-kWheelRadius = 0.6
-kWheelAngVelocity = 3
+WheelCenterX = -0.25
+WheelCenterY = 0
+WheelRadius = 0.6
+WheelAngVelocity = 3
 
-kPlatformLength = 0.10
-kPlatformWidth = 0.05
-kPlayerLength = 0.04
-kPlayerHorizontalSpeed = 0.3
+PlatformLength = 0.10
+PlatformWidth = 0.05
+PlayerLength = 0.04
+PlayerHorizontalSpeed = 0.3
+VerticalAcceleration = 0.005
 
 ###
 
-kNumOfPlatforms = 100
-kNumOfPlayers = 2
+NumOfPlatforms = 100
+NumOfPlayers = 2
 
-kBackgroundDepth = 0
-kPlatformDepth = 2
-kPlayerDepth = 3
+BackgroundDepth = 0
+PlatformDepth = 2
+PlayerDepth = 3
 
-kWindowWidth = 800
-kWindowHeight = 800
+WindowWidth = 800
+WindowHeight = 800

@@ -23,9 +23,13 @@ class Parameters {
 		std::ifstream in ("core/parameters.txt");
 		std::string fake;
 		while(!in.eof()){
+			std::cerr << 1 << "\n";
 			std::string parameterName;	
+			std::cerr << 2 << "\n";
 			in >> parameterName;
+			std::cerr << 3 << "\n";
 			if(parameterName[0]=='#') break;
+			std::cerr << parameterName << "\n";
 			in >> fake >> doubleParameters[parameterName];
 		}
 		while(!in.eof()){

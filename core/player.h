@@ -9,9 +9,11 @@ class Player {
  public:
 	Player(Color color, Game *game);
 	void Draw(Game *game);
-	void Update();
+	void Update(size_t passed_time);
 	void MoveLeft(size_t passed_time);
 	void MoveRight(size_t passed_time);
+	void CheckFreeFall();
+	void FreeFall(double initial_speed = 0);
  private:
  	Color color_;
  	bool on_platform_;
@@ -20,8 +22,10 @@ class Player {
 
 	Point location_;
 	double vertical_speed_;
-	
+
 
 };
+
+double HorizontalSpeed(size_t passed_time);
 
 #endif 
