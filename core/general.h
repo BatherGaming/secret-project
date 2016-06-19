@@ -14,8 +14,8 @@ const std::string kObjectTexturePathsFile = "gui/textures.txt";
  
 class Parameters {
  private:
- 	std::map<std::string, double> doubleParameters;
- 	std::map<std::string, size_t> integerParameters;
+ 	static std::map<std::string, double> doubleParameters;
+ 	static std::map<std::string, size_t> integerParameters;
 
 
  public:
@@ -38,7 +38,7 @@ class Parameters {
 	static double GetDbl(std::string parameter_name){
 		return doubleParameters[parameter_name];
 	}
-	static int GetInt(std::::string parameter_name){
+	static size_t GetInt(std::string parameter_name){
 		return integerParameters[parameter_name];
 	}
 

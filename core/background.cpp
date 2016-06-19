@@ -11,12 +11,12 @@ void Background::Update() {
 
 void Background::Draw(Game *game) {
 	Color color = {255, 255, 255};
-	Drawable *rectangle = new Rectangle(-Parameters::kMaxCoordinate(), 
-											 -Parameters::kMaxCoordinate(),
-											 Parameters::kMaxCoordinate(), 
-											 Parameters::kMaxCoordinate(),
+	Drawable *rectangle = new Rectangle(-Parameters::GetDbl("MaxCoordinate"), 
+											 -Parameters::GetDbl("MaxCoordinate"),
+											 Parameters::GetDbl("MaxCoordinate"), 
+											 Parameters::GetDbl("MaxCoordinate"),
 											 color,
-											 Parameters::kBackgroundDepth(),
+											 Parameters::GetInt("BackgroundDepth"),
 											 game->GetGui());
 	game->GetGui()->Draw(rectangle);
 
@@ -24,22 +24,22 @@ void Background::Draw(Game *game) {
 
 
 	Point tree_position = {obj_size.first / 2, -1 + obj_size.second / 2};
-	Drawable *tree = new Image(0, tree_position, Parameters::kBackgroundDepth() + 1,
+	Drawable *tree = new Image(0, tree_position, Parameters::GetInt("BackgroundDepth") + 1,
 					game->GetGui());
 	game->GetGui()->Draw(tree);
 	
 	tree_position = {-obj_size.first / 2, -1 + obj_size.second / 2};
-	tree = new Image(0, tree_position, Parameters::kBackgroundDepth() + 1,
+	tree = new Image(0, tree_position, Parameters::GetInt("BackgroundDepth") + 1,
 					game->GetGui());
 	game->GetGui()->Draw(tree);
 	
 	tree_position = {-1+obj_size.first / 2, -1 + obj_size.second / 2};
-	tree = new Image(0, tree_position, Parameters::kBackgroundDepth() + 1,
+	tree = new Image(0, tree_position, Parameters::GetInt("BackgroundDepth") + 1,
 					game->GetGui());
 	game->GetGui()->Draw(tree);
 	
 	tree_position = {1-obj_size.first / 2, -1 + obj_size.second / 2};
-	tree = new Image(0, tree_position, Parameters::kBackgroundDepth() + 1,
+	tree = new Image(0, tree_position, Parameters::GetInt("BackgroundDepth") + 1,
 					game->GetGui());
 	game->GetGui()->Draw(tree);
 }

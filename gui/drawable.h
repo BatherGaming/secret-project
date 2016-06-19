@@ -17,6 +17,7 @@ class Drawable{
 struct Point {
 	double x;
 	double y;
+	Point(){}
 	Point(double _x, double _y):x(_x), y(_y){}
 };
 struct Color {

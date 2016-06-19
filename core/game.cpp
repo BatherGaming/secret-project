@@ -3,11 +3,11 @@
 
 Game::Game(Gui *gui) : gui_(gui) {
 	background_ = new Background(this);
-	for (size_t i = 0; i < Parameters::kNumOfPlatforms(); i++) {
+	for (size_t i = 0; i < Parameters::GetInt("NumOfPlatforms"); i++) {
 		platforms_.push_back(new Platform(i, this));
 	}
 	Color player_colors[2] = {{255, 0, 255}, {255, 255, 0}};
-	for (size_t i = 0; i < Parameters::kNumOfPlayers(); i++) {
+	for (size_t i = 0; i < Parameters::GetInt("NumOfPlayers"); i++) {
 		players_.push_back(new Player(player_colors[i], this));
 	}
 	gui_->UpdateImage();
