@@ -1,6 +1,7 @@
 #ifndef __PLATFORM_H__
 #define __PLATFORM_H__
 
+#include "../gui/drawable.h"
 #include "general.h"
 #include "game.h"
 

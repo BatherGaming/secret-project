@@ -1,6 +1,6 @@
 include ./config.mk
 
-OBJ_GUI = gui/gui.o
+OBJ_GUI = gui/gui.o gui/drawable.o
 
 OBJ_CORE = core/game.o \
 core/background.o \

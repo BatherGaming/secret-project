@@ -1,4 +1,5 @@
 #include "background.h"
+#include "../gui/drawable.h"
 #include <iostream> // For debug purposes.
 
 Background::Background(Game *game) {
@@ -9,23 +10,36 @@ void Background::Update() {
 }
 
 void Background::Draw(Game *game) {
-	Rectangle rectangle = {-Parameters::kMaxCoordinate(), 
-													-Parameters::kMaxCoordinate(),
-													Parameters::kMaxCoordinate(), 
-													Parameters::kMaxCoordinate()
-												};
 	Color color = {255, 255, 255};
-	game->GetGui()->DrawRectangle(rectangle, Parameters::kBackgroundDepth(), color);
+	Drawable *rectangle = new Rectangle(-Parameters::kMaxCoordinate(), 
+											 -Parameters::kMaxCoordinate(),
+											 Parameters::kMaxCoordinate(), 
+											 Parameters::kMaxCoordinate(),
+											 color,
+											 Parameters::kBackgroundDepth(),
+											 game->GetGui());
+	game->GetGui()->Draw(rectangle);
 
 	std::pair<double, double> obj_size = game->GetGui()->GetObjectSize(0);
 
 
 	Point tree_position = {obj_size.first / 2, -1 + obj_size.second / 2};
-	game->GetGui()->DrawObject(0, Parameters::kBackgroundDepth()+1, tree_position);
+	Drawable *tree = new Image(0, tree_position, Parameters::kBackgroundDepth() + 1,
+					game->GetGui());
+	game->GetGui()->Draw(tree);
+	
 	tree_position = {-obj_size.first / 2, -1 + obj_size.second / 2};
-	game->GetGui()->DrawObject(0, Parameters::kBackgroundDepth()+1, tree_position);
+	tree = new Image(0, tree_position, Parameters::kBackgroundDepth() + 1,
+					game->GetGui());
+	game->GetGui()->Draw(tree);
+	
 	tree_position = {-1+obj_size.first / 2, -1 + obj_size.second / 2};
-	game->GetGui()->DrawObject(0, Parameters::kBackgroundDepth()+1, tree_position);
+	tree = new Image(0, tree_position, Parameters::kBackgroundDepth() + 1,
+					game->GetGui());
+	game->GetGui()->Draw(tree);
+	
 	tree_position = {1-obj_size.first / 2, -1 + obj_size.second / 2};
-	game->GetGui()->DrawObject(0, Parameters::kBackgroundDepth()+1, tree_position);
+	tree = new Image(0, tree_position, Parameters::kBackgroundDepth() + 1,
+					game->GetGui());
+	game->GetGui()->Draw(tree);
 }

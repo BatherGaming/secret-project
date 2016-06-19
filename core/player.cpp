@@ -1,4 +1,6 @@
 #include "player.h"
+#include "../gui/drawable.h"
+
 
 Player::Player(Color color, Game *game) : color_(color) {
 	on_platform_ = true;
@@ -13,15 +15,18 @@ void Player::Update() {
 
 void Player::Draw(Game *game) {
 	Point platform_center = platform_->GetCenter();
-	Rectangle rectangle = { platform_center.x + shift_ - 
+	Drawable *rectangle = new Rectangle(platform_center.x + shift_ - 
 																							Parameters::kPlayerLength() / 2,
 													platform_center.y + Parameters::kPlatformWidth() / 2,
 													platform_center.x + shift_ +
 																							Parameters::kPlayerLength() / 2,
 													platform_center.y + Parameters::kPlatformWidth() / 2
-																						+ Parameters::kPlayerLength()
-												};
-	game->GetGui()->DrawRectangle(rectangle, Parameters::kPlayerDepth(), color_);
+																						+ Parameters::kPlayerLength(),
+																						color_,
+																						Parameters::kPlayerDepth(),
+																						game->GetGui()
+																						);						
+	game->GetGui()->Draw(rectangle);
 }
 
 void Player::MoveLeft(size_t passed_time) {

@@ -10,12 +10,12 @@ Gui::Gui(){
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;	
 
-  window_ = new (sf::RenderWindow)(
-  		sf::VideoMode(Parameters::kWindowWidth(), Parameters::kWindowHeight()), 
-  		"SFML works!", sf::Style::Titlebar | sf::Style::Close, settings);
   //window_ = new (sf::RenderWindow)(
-  	//	sf::VideoMode::getFullscreenModes()[0], 
-  		//"SFML works!", sf::Style::Fullscreen, settings);
+  //		sf::VideoMode(Parameters::kWindowWidth(), Parameters::kWindowHeight()), 
+//  		"Secret project", sf::Style::Titlebar | sf::Style::Close, settings);
+  window_ = new (sf::RenderWindow)(
+  		sf::VideoMode::getFullscreenModes()[0], 
+  		"Secret project", sf::Style::Fullscreen, settings);
 
   window_width_ = window_->getSize().x;
   window_height_ = window_->getSize().y;
@@ -45,11 +45,13 @@ void Gui::LoadObjectTextures(){
 	std::cerr << "Textures number: " << object_textures_.size() << std::endl;
 }
 
-void Gui::DrawRectangle_(Rectangle rect, Color color){
+void Gui::Draw_(const Rectangle &rect){
 	sf::ConvexShape draw_rect;
 
 	draw_rect.setPointCount(4);
-	draw_rect.setFillColor(sf::Color(color.red, color.green, color.blue));
+	draw_rect.setFillColor(sf::Color(rect.color.red, 
+																	 rect.color.green, 
+																	 rect.color.blue));
 	draw_rect.setPoint(0, sf::Vector2f(rect.x1, rect.y1));
 	draw_rect.setPoint(1, sf::Vector2f(rect.x1, rect.y2));
 	draw_rect.setPoint(2, sf::Vector2f(rect.x2, rect.y2));
@@ -57,33 +59,18 @@ void Gui::DrawRectangle_(Rectangle rect, Color color){
 
 	window_->draw(draw_rect);
 }
-void Gui::DrawObject_(size_t object_id, Point position){
+void Gui::Draw_(const Image &img){
 	sf::Sprite object_sprite;
-	sf::Texture object_texture = object_textures_[object_id];
+	sf::Texture object_texture = object_textures_[img.obj_id];
 	object_sprite.setTexture(object_texture, true);
-	object_sprite.setPosition(position.x - object_texture.getSize().x / 2, 
-														position.y - object_texture.getSize().y / 2);
+	object_sprite.setPosition(img.location.x - object_texture.getSize().x / 2, 
+														img.location.y - object_texture.getSize().y / 2);
 	window_->draw(object_sprite);
 }
 
-void Gui::DrawRectangle(Rectangle rect, size_t depth, Color color){
-	std::pair<double, double> bottom_left_corner = ConvertCoordinates(rect.x1, 
-																																		rect.y1);
-	std::pair<double, double> upper_right_corner = ConvertCoordinates(rect.x2, 
-																																		rect.y2);
-	rect.x1 = bottom_left_corner.first;
-	rect.x2 = upper_right_corner.first;
-	rect.y1 = bottom_left_corner.second;
-	rect.y2 = upper_right_corner.second;
-	draw_rect_queue_.push_back(std::make_tuple(depth, rect, color));
-}
 
-void Gui::DrawObject(size_t obj_id, size_t depth, Point position){
-	std::pair<double, double> position_converted = ConvertCoordinates(position.x, 
-																																		position.y);
-	position.x = position_converted.first;
-	position.y = position_converted.second;
-	draw_obj_queue_.push_back(std::make_tuple(depth, obj_id, position));
+void Gui::Draw(Drawable *drawable){
+	draw_queue_.push_back(drawable);
 }
 
 // TODO: Rename and refactor.
@@ -99,23 +86,14 @@ bool cmpObj( const std::tuple<size_t, size_t, Point> &a,
 void Gui::UpdateImage(){
 	window_->clear();
 
-	// TODO: Merge into one vector.
-	sort(draw_rect_queue_.begin(), draw_rect_queue_.end(), cmpRect);
+	sort(draw_queue_.begin(), draw_queue_.end(),
+		   [](Drawable *a, Drawable *b){ return a->depth() < b->depth(); });
 
-	DrawRectangle_(std::get<1>(draw_rect_queue_[0]), std::get<2>(draw_rect_queue_[0]));
-	draw_rect_queue_.erase(draw_rect_queue_.begin());
-
-	sort(draw_obj_queue_.begin(), draw_obj_queue_.end(), cmpObj);
-	for(auto &obj : draw_obj_queue_){
-		DrawObject_(std::get<1>(obj), std::get<2>(obj));
+	for(auto& drawable : draw_queue_){
+		drawable->Draw(this);
 	}
-	draw_obj_queue_.clear();
 
-	for(auto &rect : draw_rect_queue_){
-		DrawRectangle_(std::get<1>(rect), std::get<2>(rect));
-	}
-	draw_rect_queue_.clear();
-
+	draw_queue_.clear();
 
 	window_->display();
 }
@@ -158,6 +136,6 @@ std::vector<PressedKey> Gui::GetPressedKeys(){
 	return pressed_keys;
 }
 
-std::pair<double, double> Gui::ConvertCoordinates(double x, double y){
-	return std::make_pair((x + 1) * window_width_ / 2, (1 - y) * window_height_ / 2);
+Point Gui::ConvertCoordinates(double x, double y){
+	return Point((x + 1) * window_width_ / 2, (1 - y) * window_height_ / 2);
 }
