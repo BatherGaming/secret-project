@@ -14,8 +14,8 @@ const std::string kObjectTexturePathsFile = "gui/textures.txt";
  
 class Parameters {
  private:
- 	std::map<string, double> dbl;
- 	std::map<string, size_t> integer;
+ 	std::map<std::string, double> doubleParameters;
+ 	std::map<std::string, size_t> integerParameters;
 
 
  public:
@@ -23,9 +23,23 @@ class Parameters {
 		std::ifstream in ("core/parameters.txt");
 		std::string fake;
 		while(!in.eof()){
-			in >> fake >> fake >> kMaxCoordinate_;
+			std::string parameterName;	
+			in >> parameterName;
+			if(parameterName[0]=='#') break;
+			in >> fake >> doubleParameters[parameterName];
+		}
+		while(!in.eof()){
+			std::string parameterName;	
+			in >> parameterName;
+			in >> fake >> integerParameters[parameterName];
 		}
 		in.close();
+	}
+	static double GetDbl(std::string parameter_name){
+		return doubleParameters[parameter_name];
+	}
+	static int GetInt(std::::string parameter_name){
+		return integerParameters[parameter_name];
 	}
 
 };
