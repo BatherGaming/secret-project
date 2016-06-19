@@ -20,11 +20,17 @@ void Game::Play() {
 
 		std::vector<PressedKey> pressed_keys = gui_->GetPressedKeys();
 		for (auto key : pressed_keys) {
+			if (key == upPlayer1) {
+				players_[0]->Jump();
+			}
 			if (key == leftPlayer1) {
 				players_[0]->MoveLeft(std::chrono::duration_cast<std::chrono::nanoseconds>(cur_time - last_time).count());
 			}
 			if (key == rightPlayer1) {
 				players_[0]->MoveRight(std::chrono::duration_cast<std::chrono::nanoseconds>(cur_time - last_time).count());
+			}
+			if (key == upPlayer2) {
+				players_[1]->Jump();
 			}
 			if (key == leftPlayer2) {
 				players_[1]->MoveLeft(std::chrono::duration_cast<std::chrono::nanoseconds>(cur_time - last_time).count());
@@ -41,7 +47,7 @@ void Game::Play() {
 		}
 		for (auto player : players_) {
 			player->Update(std::chrono::duration_cast<std::chrono::nanoseconds>(cur_time - last_time).count());
-			player->Draw(this);
+			player->Draw();
 		}
 		last_time = cur_time;
 		gui_->UpdateImage();
@@ -55,6 +61,6 @@ Gui *Game::GetGui() {
 	return gui_;
 }
 
-Platform *Game::GetPlatform(size_t num) {
-	return platforms_[num];
+std::vector<Platform*>& Game::GetPlatforms() {
+	return platforms_;
 }

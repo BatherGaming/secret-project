@@ -13,16 +13,13 @@ Parameters::Parameters(){
 		in >> parameterName;
 		if(parameterName[0]=='#') break;
 		in >> fake >> doubleParameters[parameterName];
-		std::cerr << parameterName << " " << doubleParameters[parameterName] << std::endl;
 	}
 	while(!in.eof()){
 		std::string parameterName;	
 		in >> parameterName;
 		in >> fake >> integerParameters[parameterName];
-		std::cerr << parameterName << " " << integerParameters[parameterName] << std::endl;
 	}
 
-	std::cerr << "Done" << std::endl;
 	in.close();
 }
 double Parameters::GetDbl(std::string parameter_name){

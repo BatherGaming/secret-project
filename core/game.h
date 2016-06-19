@@ -16,7 +16,7 @@ class Game {
  public:
  	Game(Gui *gui);
  	Gui *GetGui();
- 	Platform *GetPlatform(size_t num);
+ 	std::vector<Platform*>& GetPlatforms();
  	void Play();
  };
 
