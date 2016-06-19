@@ -9,8 +9,12 @@ Player::Player(Color color, Game *game) : color_(color) {
 	Draw(game);
 }
 
-void Player::Update() {
-
+void Player::Update(size_t passed_time) {
+	if (on_platform_) { return; }
+	double real_time = static_cast<double>(passed_time) / 1000000000;
+	location_.y -= vertical_speed * real_time + real_time * real_time * 
+										Parameters::kVerticalAcceleration();
+									+
 }
 
 void Player::Draw(Game *game) {
@@ -29,12 +33,43 @@ void Player::Draw(Game *game) {
 	game->GetGui()->Draw(rectangle);
 }
 
-void Player::MoveLeft(size_t passed_time) {
-	shift_ -= Parameters::kPlayerHorizontalSpeed() * 
+double HorizontalShift(size_t passed_time) {
+	return Parameters::kPlayerHorizontalSpeed() * 
 							static_cast<double>(passed_time) / 1000000000;
 }
 
+void Player::FreeFall(double initial_speed = 0) {
+	location_.x = platform_->GetCenter().x + shift_;
+	location_.y = platform_->GetCenter().y + Parameters::kPlatformWidth() / 2 + 
+																				 + Parameters::kPlayerLength() / 2;
+	vertical_speed = initial_speed;
+	on_platform_ = false;
+	platform_ = nullptr;
+}
+
+void Player::CheckFreeFall() {
+	if (abs(shift_) > Parameters::kPlatfromLength() / 2 + 
+										Parameters::kPlayerLength() / 2) {
+		FreeFall();
+	}
+}
+
+void Player::MoveLeft(size_t passed_time) {
+	if (on_platform_) {
+		shift_ -= HorizontalShift(passed_time);
+		CheckFreeFall();
+	} 
+	else {
+		location_.x -= HorizontalShift(passed_time); 
+	}
+}
+
 void Player::MoveRight(size_t passed_time) {
-	shift_ += Parameters::kPlayerHorizontalSpeed() * 
-							static_cast<double>(passed_time) / 1000000000;
+	if (on_platform_) {
+		shift_ += HorizontalShift(passed_time);
+		CheckFreeFall();
+	}
+	else {
+		location_.x += HorizontalShift(passed_time);
+	}
 }

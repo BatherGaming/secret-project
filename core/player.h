@@ -17,6 +17,11 @@ class Player {
  	bool on_platform_;
 	Platform *platform_;
 	double shift_;
+
+	Point location_;
+	double vertical_speed_;
+	
+
 };
 
 #endif 
