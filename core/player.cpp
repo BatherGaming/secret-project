@@ -6,6 +6,7 @@
 
 
 Player::Player(Color color, Game *game) : color_(color), game_(game) {
+	horizontal_speed_ = vertical_speed_ = 0;
 	on_platform_ = true;
 	platform_ = game_->GetPlatforms()[rand() % Parameters::GetInt("NumOfPlatforms")];
 	fall_state_ = 0;
@@ -15,6 +16,17 @@ Player::Player(Color color, Game *game) : color_(color), game_(game) {
 
 void Player::Update(size_t passed_time) {
 	previous_location_ = location_;
+	double real_time = static_cast<double>(passed_time) / 1000000000;
+
+	if(fabs(horizontal_speed_) > epsilon) {
+		if(on_platform_){
+			shift_ += horizontal_speed_ * real_time;
+		}
+		else{
+			location_.x += horizontal_speed_ * real_time;
+		}
+	}
+
 	if (on_platform_) { 
 		Point platform_center = platform_->GetCenter();
 		location_.x = platform_center.x + shift_;
@@ -32,7 +44,6 @@ void Player::Update(size_t passed_time) {
 			fall_state_ = 0;
 		}
 	}
-	double real_time = static_cast<double>(passed_time) / 1000000000;
 	location_.y += vertical_speed_ * real_time + real_time * real_time * 
 										Parameters::GetDbl("VerticalAcceleration") / 2;
 	vertical_speed_ += Parameters::GetDbl("VerticalAcceleration") * real_time;
@@ -90,7 +101,7 @@ void Player::Draw() {
 	game_->GetGui()->Draw(rectangle);
 }
 
-double HorizontalShift(size_t passed_time) {
+double HorizontalShift(int passed_time) {
 	return Parameters::GetDbl("PlayerHorizontalSpeed") * 
 							static_cast<double>(passed_time) / 1000000000;
 }
@@ -113,27 +124,49 @@ void Player::CheckFreeFall() {
 	}
 }
 
-void Player::MoveLeft(size_t passed_time) {
-	if (on_platform_) {
-		shift_ -= HorizontalShift(passed_time);
-		CheckFreeFall();
-	} 
-	else {
-		location_.x -= HorizontalShift(passed_time); 
-	}
+void Player::MoveLeft(int passed_time) {
+	// Be careful here.
+	//std::cerr << "kek" << std::endl;
+	MoveRight(-passed_time);
+	direction_ = left;
 }
 
-void Player::MoveRight(size_t passed_time) {
+void Player::MoveRight(int passed_time) {
+	direction_ = right;
+	double delta;
+	if(fabs(horizontal_speed_) > epsilon){
+		delta = Parameters::GetDbl("PlayerHorizontalAccel") * 
+							static_cast<double>(passed_time) / 1000000000;
+		if(horizontal_speed_ * (horizontal_speed_ + delta) < 0){
+			delta += horizontal_speed_;
+			horizontal_speed_ = 0;
+		} 
+		else{
+			horizontal_speed_ += delta;
+			delta = 0;
+		}
+	}
+	else{
+		delta = HorizontalShift(passed_time);
+	}
+
+
 	if (on_platform_) {
-		shift_ += HorizontalShift(passed_time);
+		shift_ += delta;
 		CheckFreeFall();
 	}
 	else {
-		location_.x += HorizontalShift(passed_time);
+		location_.x += delta;
 	}
 }
 void Player::Jump(){
 	fall_state_ = 2;
+}
+void Player::Shoot(size_t passed_time){
+	if(direction_ == left)
+		horizontal_speed_ = Parameters::GetDbl("ImpactSpeed");
+	else
+		horizontal_speed_ = -Parameters::GetDbl("ImpactSpeed");
 }
 
 bool Player::SegmentsIntersect(double ax1, double ax2, double bx1, double bx2){

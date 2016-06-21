@@ -19,34 +19,52 @@ void Game::Play() {
 		auto cur_time = std::chrono::high_resolution_clock::now();
 
 		std::vector<PressedKey> pressed_keys = gui_->GetPressedKeys();
+		auto time_passed = std::chrono::duration_cast<std::chrono::nanoseconds>(
+																			cur_time - last_time).count();
 		for (auto key : pressed_keys) {
-			if (key == upPlayer1) {
-				players_[0]->Jump();
-			}
-			if (key == leftPlayer1) {
-				players_[0]->MoveLeft(std::chrono::duration_cast<std::chrono::nanoseconds>(cur_time - last_time).count());
-			}
-			if (key == rightPlayer1) {
-				players_[0]->MoveRight(std::chrono::duration_cast<std::chrono::nanoseconds>(cur_time - last_time).count());
-			}
-			if (key == upPlayer2) {
-				players_[1]->Jump();
-			}
-			if (key == leftPlayer2) {
-				players_[1]->MoveLeft(std::chrono::duration_cast<std::chrono::nanoseconds>(cur_time - last_time).count());
-			}
-			if (key == rightPlayer2) {
-				players_[1]->MoveRight(std::chrono::duration_cast<std::chrono::nanoseconds>(cur_time - last_time).count());
+			switch(key){
+				case upPlayer1:{
+					players_[0]->Jump();
+					break;
+				}
+				case leftPlayer1:{
+					players_[0]->MoveLeft(time_passed);
+					break;
+				}
+				case rightPlayer1:{
+					players_[0]->MoveRight(time_passed);
+					break;
+				}
+				case shootPlayer1:{
+					players_[0]->Shoot(time_passed);
+					break;
+				}
+				case upPlayer2:{
+					players_[1]->Jump();
+					break;
+				}
+				case leftPlayer2:{
+					players_[1]->MoveLeft(time_passed);
+					break;
+				}
+				case rightPlayer2:{
+					players_[1]->MoveRight(time_passed);
+					break;
+				}
+				case shootPlayer2:{
+					players_[1]->Shoot(time_passed);
+					break;
+				}
 			}
 		}
 		background_->Update();
 		background_->Draw(this);
 		for (auto platform : platforms_) {
-			platform->Update(std::chrono::duration_cast<std::chrono::nanoseconds>(cur_time - last_time).count());
+			platform->Update(time_passed);
 			platform->Draw(this);
 		}
 		for (auto player : players_) {
-			player->Update(std::chrono::duration_cast<std::chrono::nanoseconds>(cur_time - last_time).count());
+			player->Update(time_passed);
 			player->Draw();
 		}
 		last_time = cur_time;

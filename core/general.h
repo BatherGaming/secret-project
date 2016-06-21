@@ -28,15 +28,23 @@ class ParametersInitializer {
 	static Parameters parameters_;
 };
 
-enum PressedKey {  
-	upPlayer1 = 0,
-	leftPlayer1 = 1,
-	rightPlayer1 = 2,
-	upPlayer2 = 3,
-	leftPlayer2 = 4,
-	rightPlayer2 = 5,
+enum Direction{
+	left = 0,
+	right
 };
 
+enum PressedKey {  
+	upPlayer1 = 0,
+	leftPlayer1,
+	rightPlayer1,
+	shootPlayer1, 
+	upPlayer2,
+	leftPlayer2,
+	rightPlayer2,
+	shootPlayer2,
+};
+
+const double epsilon = 1e-9;
 
 
 #endif

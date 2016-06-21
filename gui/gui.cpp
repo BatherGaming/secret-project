@@ -124,6 +124,9 @@ std::vector<PressedKey> Gui::GetPressedKeys(){
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
 		pressed_keys.push_back(PressedKey::upPlayer1);
 	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
+		pressed_keys.push_back(PressedKey::shootPlayer1);
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
 		pressed_keys.push_back(PressedKey::leftPlayer2);
 	}
@@ -132,6 +135,9 @@ std::vector<PressedKey> Gui::GetPressedKeys(){
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
 		pressed_keys.push_back(PressedKey::upPlayer2);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
+		pressed_keys.push_back(PressedKey::shootPlayer2);
 	}
 	return pressed_keys;
 }

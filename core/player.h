@@ -10,12 +10,14 @@ class Player {
 	Player(Color color, Game *game);
 	void Draw();
 	void Update(size_t passed_time);
-	void MoveLeft(size_t passed_time);
-	void MoveRight(size_t passed_time);
+	void MoveLeft(int passed_time);
+	void MoveRight(int passed_time);
 	void CheckFreeFall();
 	void FreeFall(double initial_speed = 0);
 	void Jump();
+	void Shoot(size_t passed_time);
  private:
+ 	Direction direction_;
  	Game *game_;
  	Color color_;
  	bool on_platform_;
@@ -26,12 +28,13 @@ class Player {
 	Point location_;
 	Point previous_location_;
 	double vertical_speed_;
+	double horizontal_speed_;
 
 	void GetOnPlatform(Platform *platform);
 	void CheckCollisions();
 	bool SegmentsIntersect(double ax1, double ax2, double bx1, double bx2);
 };
 
-double HorizontalSpeed(size_t passed_time);
+double HorizontalShift(int passed_time);
 
 #endif 

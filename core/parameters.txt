@@ -9,8 +9,11 @@ PlatformLength = 0.1
 PlatformWidth = 0.05
 PlayerLength = 0.04
 PlayerHorizontalSpeed = 0.6
+PlayerHorizontalAccel = 0.6
 PlayerJumpSpeed = 2
 VerticalAcceleration = -3
+
+ImpactSpeed = 0.6
 
 ###
 
