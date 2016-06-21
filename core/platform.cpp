@@ -4,10 +4,12 @@
 
 Platform::Platform(size_t number, Game *game) {
 	angle_ = 2 * kPI * static_cast<double>(number) / Parameters::GetInt("NumOfPlatforms");
+	previous_angle_ = angle_;
 	Draw(game);
 }
 
 void Platform::Update(size_t passed_time) {
+	previous_angle_ = angle_;
 	angle_ -= Parameters::GetDbl("WheelAngVelocity") * 
 							static_cast<double>(passed_time) / 1000000000;
 	while (angle_ < 0)
@@ -33,6 +35,13 @@ Point Platform::GetCenter() {
 					 Parameters::GetDbl("WheelCenterY") + Parameters::GetDbl("WheelRadius") * sin(angle_)
 				};
 }
+Point Platform::GetPreviousCenter(){
+	std::swap(angle_, previous_angle_);
+	Point result = GetCenter();
+	std::swap(angle_, previous_angle_);
+	return result;
+}
+
 
 double Platform::GetAngle() {
 	return angle_;

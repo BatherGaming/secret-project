@@ -24,10 +24,11 @@ class Player {
 	double shift_;
 
 	Point location_;
+	Point previous_location_;
 	double vertical_speed_;
 
 	void GetOnPlatform(Platform *platform);
-	void CheckCollisions(size_t passed_time);
+	void CheckCollisions();
 	bool SegmentsIntersect(double ax1, double ax2, double bx1, double bx2);
 };
 

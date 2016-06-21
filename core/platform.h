@@ -8,11 +8,13 @@
 class Platform {
 private:
 	double angle_;
+	double previous_angle_;
 public:
 	Platform(size_t number, Game *game);
 	void Update(size_t passed_time);
 	void Draw(Game *game);
 	Point GetCenter();
+	Point GetPreviousCenter();
 	double GetAngle();
 };
 

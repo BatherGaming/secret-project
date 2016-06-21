@@ -14,6 +14,7 @@ Player::Player(Color color, Game *game) : color_(color), game_(game) {
 }
 
 void Player::Update(size_t passed_time) {
+	previous_location_ = location_;
 	if (on_platform_) { 
 		Point platform_center = platform_->GetCenter();
 		location_.x = platform_center.x + shift_;
@@ -29,20 +30,24 @@ void Player::Update(size_t passed_time) {
 		else if(fall_state_ == 2){
 			FreeFall(Parameters::GetDbl("PlayerJumpSpeed"));
 			fall_state_ = 0;
-			//vertical_speed_ -= Parameters::GetDbl("VerticalAcceleration") * real_time;
 		}
 	}
 	double real_time = static_cast<double>(passed_time) / 1000000000;
 	location_.y += vertical_speed_ * real_time + real_time * real_time * 
 										Parameters::GetDbl("VerticalAcceleration") / 2;
 	vertical_speed_ += Parameters::GetDbl("VerticalAcceleration") * real_time;
+
+	// Make the guy appear at the top when falling to low
+	if(location_.y <= -Parameters::GetDbl("MaxCoordinate")){ 
+		location_.y = Parameters::GetDbl("MaxCoordinate");
+	}
+
 	if(vertical_speed_ < 0){
-		//std::cerr << "CheckCollisions..." << std::endl;
-		CheckCollisions(passed_time);
+		CheckCollisions();
 	}
 }
 
-void Player::CheckCollisions(size_t passed_time){
+void Player::CheckCollisions(){
 	std::vector<Platform*> platforms = game_->GetPlatforms();
 	for(auto platform : platforms){
 		Point center = platform->GetCenter();
@@ -54,10 +59,8 @@ void Player::CheckCollisions(size_t passed_time){
 													location_.y + Parameters::GetDbl("PlayerLength")/2,
 													center.y - Parameters::GetDbl("PlatformWidth")/2,
 													center.y + Parameters::GetDbl("PlatformWidth")/2) &&
-			 location_.y - vertical_speed_*static_cast<double>(passed_time) / 1000000000 - Parameters::GetDbl("PlayerLength") / 2 > 
-			 center.y + Parameters::GetDbl("PlatformWidth")/2){
-			std::cerr << location_.y << " " << location_.y - vertical_speed_ - Parameters::GetDbl("PlayerLength") / 2 << " " <<
-			 center.y + Parameters::GetDbl("PlatformWidth")/2 << std::endl;
+			 previous_location_.y - Parameters::GetDbl("PlayerLength") / 2 > 
+			 platform->GetPreviousCenter().y + Parameters::GetDbl("PlatformWidth")/2){
 			GetOnPlatform(platform);
 			break;
 		}
